@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import org.sqlite.SQLiteConfig;
 /**
  *
- * @author jonatan
+ * @author
  */
 public class ProductoData {
     static Connection cn = Conn.connectSQLite();

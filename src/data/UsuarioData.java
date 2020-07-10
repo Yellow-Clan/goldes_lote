@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 /**
  *
- * @author Asullom
+ * @author 
  */
 public class UsuarioData {
 

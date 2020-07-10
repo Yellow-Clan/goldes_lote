@@ -2,7 +2,7 @@ package data;
 
 /**
  *
- * @author Asullom
+ * @author 
  */
 import java.sql.Connection;
 import java.sql.DriverManager;

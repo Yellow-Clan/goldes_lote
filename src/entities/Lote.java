@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author jonatan
+ * @author 
  */
 public class Lote {
     private int id;

@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,18 +18,20 @@ import java.util.List;
 import util.ErrorLogger;
 import java.util.logging.Level;
 import org.sqlite.SQLiteConfig;
+
 /**
  *
- * @author jonatan
+ * @author
  */
 public class LoteData {
+
     static Connection cn = Conn.connectSQLite();
     static PreparedStatement ps;
     static ErrorLogger log = new ErrorLogger(CienteData.class.getName());
     static Date dt = new Date();
     static SimpleDateFormat sdf = new SimpleDateFormat(SQLiteConfig.DEFAULT_DATE_STRING_FORMAT);
-    
-       public static int create(Lote d) {
+
+    public static int create(Lote d) {
         int rsId = 0;
         String[] returns = {"id"};
         String sql = "INSERT INTO lote(numero,direccion,valor_venta,fecha_venta,date_created) "
@@ -42,7 +44,7 @@ public class LoteData {
             ps.setString(++i, d.getDireccion());
             ps.setDouble(++i, d.getValor_venta());
             ps.setString(++i, fecha);
-            
+
             ps.setString(++i, sdf.format(dt));
             rsId = ps.executeUpdate();// 0 no o 1 si commit
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -58,8 +60,8 @@ public class LoteData {
         }
         return rsId;
     }
-       
-     public static int update(Lote d) {
+
+    public static int update(Lote d) {
         System.out.println("actualizar d.getId(): " + d.getId());
         int comit = 0;
         String sql = "UPDATE lote SET "
@@ -68,7 +70,6 @@ public class LoteData {
                 + "valor_venta=?,"
                 + "fecha_venta=?,"
                 + "date_created=? "
-                
                 + "WHERE id=?";
         int i = 0;
         try {
@@ -77,7 +78,7 @@ public class LoteData {
             ps.setString(++i, d.getNumero());
             ps.setString(++i, d.getDireccion());
             ps.setDouble(++i, d.getValor_venta());
-            
+
             ps.setString(++i, fecha);
             ps.setString(++i, sdf.format(dt));
             ps.setInt(++i, d.getId());
@@ -87,8 +88,8 @@ public class LoteData {
         }
         return comit;
     }
-     
-     public static int delete(int id) throws Exception {
+
+    public static int delete(int id) throws Exception {
         int comit = 0;
         String sql = "DELETE FROM lote WHERE id = ?";
         try {
@@ -102,7 +103,7 @@ public class LoteData {
         }
         return comit;
     }
-     
+
     public static List<Lote> list(String filter) {
         String filtert = null;
         if (filter == null) {
@@ -118,7 +119,7 @@ public class LoteData {
             sql = "SELECT * FROM lote ORDER BY id";
         } else {
             sql = "SELECT * FROM lote WHERE (id LIKE'" + filter + "%' OR "
-                    + "numero LIKE'" + filter +"%'OR direccion LIKE'"+filter+"%'OR valor_venta LIKE'"+filter+"%'OR fecha_venta LIKE'"+filter+ "%' OR date_created LIKE'" + filter + "%' OR "
+                    + "numero LIKE'" + filter + "%'OR direccion LIKE'" + filter + "%'OR valor_venta LIKE'" + filter + "%'OR fecha_venta LIKE'" + filter + "%' OR date_created LIKE'" + filter + "%' OR "
                     + "id LIKE'" + filter + "%') "
                     + "ORDER BY numero";
         }
@@ -131,21 +132,20 @@ public class LoteData {
                 d.setNumero(rs.getString("numero"));
                 d.setDireccion(rs.getString("direccion"));
                 d.setValor_venta(rs.getDouble("valor_venta"));
-                
-                 String fecha = rs.getString("fecha_venta");
-                 try {
+
+                String fecha = rs.getString("fecha_venta");
+                try {
                     Date date = sdf.parse(fecha);
                     System.out.println("Xlist.date:" + date);
-                   
+
                     d.setFecha_venta(date);
                     d.setDate_created(sdf.parse(rs.getString("date_created")));
-                   // System.out.println("list.date_created:" + rs.getString("date_created"));
-                   // System.out.println("list.last_updated:" + rs.getString("last_updated"));
-                   
+                    // System.out.println("list.date_created:" + rs.getString("date_created"));
+                    // System.out.println("list.last_updated:" + rs.getString("last_updated"));
 
                 } catch (Exception e) {
                 }
-                
+
                 ls.add(d);
             }
         } catch (SQLException ex) {
@@ -153,7 +153,7 @@ public class LoteData {
         }
         return ls;
     }
-    
+
     public static Lote getByPId(int id) {
         Lote d = new Lote();
 
@@ -168,7 +168,7 @@ public class LoteData {
                 d.setNumero(rs.getString("numero"));
                 d.setDireccion(rs.getString("direccion"));
                 d.setValor_venta(rs.getDouble("valor_venta"));
-                
+
             }
         } catch (SQLException ex) {
             log.log(Level.SEVERE, "getByPId", ex);

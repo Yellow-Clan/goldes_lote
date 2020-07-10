@@ -7,7 +7,7 @@ package igu.inventario;
 
 /**
  *
- * @author jonatan
+ * @author  
  */
 public class InventoryMainPanel extends javax.swing.JPanel {
 
